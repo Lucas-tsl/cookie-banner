@@ -4,8 +4,10 @@
  * Description: Bannière minimaliste intégrée avec Google Consent Mode V2 et DataLayer GTM.
  * Version: 3.0
  * Author: Troteseil Lucas
+ * Author URI:  https://github.com/Lucas-tsl/cookie-banner
  * Text Domain: banniere-cookie-custom
  */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Sécurité : empêche l'accès direct au fichier
