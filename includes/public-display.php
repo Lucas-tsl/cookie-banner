@@ -9,7 +9,10 @@ function bcc_inject_consent_mode() {
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
 
-        var bccHasConsent = document.cookie.indexOf('bcc_consent_all=') !== -1;
+        var bccConsentVersion = document.cookie.match(/(?:^|; )bcc_consent_version=([^;]*)/);
+        var bccHasConsent = document.cookie.indexOf('bcc_consent_all=') !== -1
+            && bccConsentVersion !== null
+            && bccConsentVersion[1] === '<?php echo esc_js( BCC_CONSENT_VERSION ); ?>';
         var bccStats = document.cookie.indexOf('bcc_consent_stats=1') !== -1 ? 'granted' : 'denied';
         var bccMkt = document.cookie.indexOf('bcc_consent_mkt=1') !== -1 ? 'granted' : 'denied';
 
@@ -18,7 +21,10 @@ function bcc_inject_consent_mode() {
             'ad_user_data': bccHasConsent ? bccMkt : 'denied',
             'ad_personalization': bccHasConsent ? bccMkt : 'denied',
             'analytics_storage': bccHasConsent ? bccStats : 'denied',
-            'wait_for_update': 500
+            // Le délai n'a d'utilité que le temps de laisser un nouveau visiteur
+            // répondre à la bannière ; inutile de ralentir GTM pour un visiteur
+            // dont le choix est déjà connu.
+            'wait_for_update': bccHasConsent ? 0 : 500
         });
     </script>
     <?php
@@ -32,7 +38,9 @@ function bcc_afficher_banniere() {
     $url_politique = get_option('bcc_url_politique', '#');
     $url_mentions = get_option('bcc_url_mentions', '#');
     
-    $choix_fait = isset($_COOKIE['bcc_consent_all']);
+    $choix_fait = isset($_COOKIE['bcc_consent_all'])
+        && isset($_COOKIE['bcc_consent_version'])
+        && $_COOKIE['bcc_consent_version'] === BCC_CONSENT_VERSION;
     ?>
     
     <div id="bcc-floating-btn" class="bcc-floating-btn" style="display: <?php echo $choix_fait ? 'flex' : 'none'; ?>;">
