@@ -15,7 +15,24 @@
 .bcc-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999999; align-items: center; justify-content: center; font-family: sans-serif; }
 .bcc-modal { background: #fff; border: 2px solid #000; box-shadow: 8px 8px 0px #000; padding: 30px; width: 90%; max-width: 500px; }
 .bcc-cookie-type { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #ddd; gap: 15px; }
-.bcc-cookie-type input { width: 20px; height: 20px; accent-color: #000; cursor: pointer; }
+.bcc-cookie-type label { cursor: pointer; }
+/* Le thème du site peut appliquer des styles globaux agressifs aux checkboxes
+   (reset, toggle personnalisé) : on force explicitement leur affichage natif. */
+.bcc-modal input[type="checkbox"] {
+    appearance: auto;
+    -webkit-appearance: checkbox;
+    display: inline-block !important;
+    position: static !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px;
+    flex-shrink: 0;
+    margin: 0;
+    accent-color: #000;
+    cursor: pointer;
+}
 
 /* Bouton Flottant Rétractation */
 .bcc-floating-btn { position: fixed; bottom: 20px; left: 20px; background: #fff; border: 2px solid #000; padding: 8px 12px; font-size: 12px; font-weight: bold; cursor: pointer; box-shadow: 2px 2px 0px #000; z-index: 999998; font-family: sans-serif; }

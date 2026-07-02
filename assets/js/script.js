@@ -1,7 +1,48 @@
 document.addEventListener("DOMContentLoaded", function() {
     const banner = document.getElementById("bcc-banner-card");
     const modal = document.getElementById("bcc-modal-overlay");
+    const modalBox = modal ? modal.querySelector(".bcc-modal") : null;
     const floatingBtn = document.getElementById("bcc-floating-btn");
+
+    let lastFocusedElement = null;
+
+    function getFocusableModalElements() {
+        return modalBox.querySelectorAll('button, input:not([disabled]), a[href]');
+    }
+
+    function handleModalKeydown(event) {
+        if (event.key === "Escape") {
+            closeModal();
+            return;
+        }
+        if (event.key !== "Tab") return;
+        const focusable = getFocusableModalElements();
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
+    }
+
+    function openModal(trigger) {
+        if (!modal || !modalBox) return;
+        lastFocusedElement = trigger || document.activeElement;
+        modal.style.display = "flex";
+        modalBox.focus();
+        document.addEventListener("keydown", handleModalKeydown);
+    }
+
+    function closeModal() {
+        if (!modal) return;
+        modal.style.display = "none";
+        document.removeEventListener("keydown", handleModalKeydown);
+        if (lastFocusedElement) lastFocusedElement.focus();
+    }
 
     function setConsent(stats, mkt) {
         const expires = new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000).toUTCString();
@@ -13,10 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
         document.cookie = `bcc_consent_mkt=${mkt}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
         document.cookie = `bcc_consent_version=${consentVersion}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
         document.cookie = `bcc_consent_all=1; expires=${expires}; path=/; samesite=strict${secureFlag}`;
-        
+
         let statsStatus = stats === 1 ? 'granted' : 'denied';
         let mktStatus = mkt === 1 ? 'granted' : 'denied';
-        
+
         if(typeof gtag === 'function') {
             gtag('consent', 'update', {
                 'ad_storage': mktStatus,
@@ -25,11 +66,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 'analytics_storage': statsStatus
             });
         }
-        
+
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({ 'event': 'cookie_consent_updated' });
 
         if(banner) banner.style.display = "none";
+        document.removeEventListener("keydown", handleModalKeydown);
         if(modal) modal.style.display = "none";
         if(floatingBtn) floatingBtn.style.display = "flex";
     }
@@ -42,21 +84,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if(btnAccepter) btnAccepter.addEventListener("click", () => setConsent(1, 1));
     if(btnRefuser) btnRefuser.addEventListener("click", () => setConsent(0, 0));
-    
-    if(btnPrefs) btnPrefs.addEventListener("click", () => { 
-        banner.style.display = "none"; 
-        modal.style.display = "flex"; 
+
+    if(btnPrefs) btnPrefs.addEventListener("click", () => {
+        banner.style.display = "none";
+        openModal(btnPrefs);
     });
-    
-    if(floatingBtn) floatingBtn.addEventListener("click", () => { 
-        modal.style.display = "flex"; 
+
+    if(floatingBtn) floatingBtn.addEventListener("click", () => {
+        openModal(floatingBtn);
     });
-    
+
+    if(modal) modal.addEventListener("click", (event) => {
+        if (event.target === modal) closeModal();
+    });
+
     if(btnCloseModal) btnCloseModal.addEventListener("click", () => {
         if(!document.cookie.includes('bcc_consent_all')) banner.style.display = "block";
-        modal.style.display = "none";
+        closeModal();
     });
-    
+
     if(btnSavePrefs) btnSavePrefs.addEventListener("click", () => {
         const stats = document.getElementById("chk-stats").checked ? 1 : 0;
         const mkt = document.getElementById("chk-mkt").checked ? 1 : 0;
