@@ -11,6 +11,7 @@ module.exports = [
         window: "readonly",
         document: "readonly",
         gtag: "readonly",
+        bccConfig: "readonly",
       },
     },
   },

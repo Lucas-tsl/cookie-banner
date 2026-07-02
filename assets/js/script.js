@@ -8,8 +8,10 @@ document.addEventListener("DOMContentLoaded", function() {
         // "secure" est ignoré silencieusement par le navigateur en HTTP : ne l'ajouter
         // qu'en HTTPS, sinon le cookie n'est jamais posé (boucle infinie en dev/staging).
         const secureFlag = window.location.protocol === "https:" ? "; secure" : "";
+        const consentVersion = (typeof bccConfig !== "undefined" && bccConfig.consentVersion) ? bccConfig.consentVersion : "1";
         document.cookie = `bcc_consent_stats=${stats}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
         document.cookie = `bcc_consent_mkt=${mkt}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
+        document.cookie = `bcc_consent_version=${consentVersion}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
         document.cookie = `bcc_consent_all=1; expires=${expires}; path=/; samesite=strict${secureFlag}`;
         
         let statsStatus = stats === 1 ? 'granted' : 'denied';
