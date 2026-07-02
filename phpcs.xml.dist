@@ -36,7 +36,10 @@
             <property name="prefixes" type="array">
                 <element value="bcc"/>
             </property>
-            <property name="minimum_prefix_length" value="3"/>
         </properties>
+    </rule>
+    <!-- "bcc" est le préfixe historique du plugin, utilisé de façon cohérente partout -->
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed">
+        <severity>0</severity>
     </rule>
 </ruleset>
