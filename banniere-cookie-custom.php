@@ -22,9 +22,15 @@ define( 'BCC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 // à revalider leur choix.
 define( 'BCC_CONSENT_VERSION', '1' );
 
+// Chargement des traductions
+add_action( 'plugins_loaded', 'bcc_charger_traductions' );
+function bcc_charger_traductions() {
+    load_plugin_textdomain( 'banniere-cookie-custom', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+
 // Texte de bannière par défaut, partagé entre l'écran de réglages et l'affichage public
 function bcc_texte_par_defaut() {
-    return "Nous utilisons des cookies pour assurer le bon fonctionnement du site, analyser notre trafic et personnaliser nos publicités. Vous pouvez choisir vos préférences ci-dessous.";
+    return __( "Nous utilisons des cookies pour assurer le bon fonctionnement du site, analyser notre trafic et personnaliser nos publicités. Vous pouvez choisir vos préférences ci-dessous.", 'banniere-cookie-custom' );
 }
 
 // Inclusion des fonctionnalités
