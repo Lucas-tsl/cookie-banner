@@ -15,7 +15,7 @@ function bcc_enregistrer_parametres() {
 }
 
 function bcc_page_reglages_html() {
-    $texte_defaut = "Nous utilisons des cookies pour assurer le bon fonctionnement du site, analyser notre trafic et personnaliser nos publicités. Vous pouvez choisir vos préférences ci-dessous.";
+    $texte_defaut = bcc_texte_par_defaut();
     ?>
     <div class="wrap">
         <h1>Configuration de la Bannière Cookie (GTM Edition)</h1>
