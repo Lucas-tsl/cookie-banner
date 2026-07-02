@@ -8,10 +8,10 @@ function bcc_ajouter_menu() {
 
 add_action('admin_init', 'bcc_enregistrer_parametres');
 function bcc_enregistrer_parametres() {
-    register_setting('bcc_options_group', 'bcc_logo_url');
-    register_setting('bcc_options_group', 'bcc_texte_banniere');
-    register_setting('bcc_options_group', 'bcc_url_politique');
-    register_setting('bcc_options_group', 'bcc_url_mentions');
+    register_setting('bcc_options_group', 'bcc_logo_url', array( 'sanitize_callback' => 'esc_url_raw' ));
+    register_setting('bcc_options_group', 'bcc_texte_banniere', array( 'sanitize_callback' => 'sanitize_textarea_field' ));
+    register_setting('bcc_options_group', 'bcc_url_politique', array( 'sanitize_callback' => 'esc_url_raw' ));
+    register_setting('bcc_options_group', 'bcc_url_mentions', array( 'sanitize_callback' => 'esc_url_raw' ));
 }
 
 function bcc_page_reglages_html() {
