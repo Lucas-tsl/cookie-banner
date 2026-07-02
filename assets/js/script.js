@@ -5,9 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function setConsent(stats, mkt) {
         const expires = new Date(new Date().getTime() + 365 * 24 * 60 * 60 * 1000).toUTCString();
-        document.cookie = `bcc_consent_stats=${stats}; expires=${expires}; path=/; secure; samesite=strict`;
-        document.cookie = `bcc_consent_mkt=${mkt}; expires=${expires}; path=/; secure; samesite=strict`;
-        document.cookie = `bcc_consent_all=1; expires=${expires}; path=/; secure; samesite=strict`;
+        // "secure" est ignoré silencieusement par le navigateur en HTTP : ne l'ajouter
+        // qu'en HTTPS, sinon le cookie n'est jamais posé (boucle infinie en dev/staging).
+        const secureFlag = window.location.protocol === "https:" ? "; secure" : "";
+        document.cookie = `bcc_consent_stats=${stats}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
+        document.cookie = `bcc_consent_mkt=${mkt}; expires=${expires}; path=/; samesite=strict${secureFlag}`;
+        document.cookie = `bcc_consent_all=1; expires=${expires}; path=/; samesite=strict${secureFlag}`;
         
         let statsStatus = stats === 1 ? 'granted' : 'denied';
         let mktStatus = mkt === 1 ? 'granted' : 'denied';
