@@ -68,9 +68,9 @@ function bcc_afficher_banniere() {
         </div>
     </div>
 
-    <div id="bcc-modal-overlay" class="bcc-modal-overlay">
-        <div class="bcc-modal">
-            <h3 class="bcc-title">Préférences des cookies</h3>
+    <div id="bcc-modal-overlay" class="bcc-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bcc-modal-title">
+        <div class="bcc-modal" tabindex="-1">
+            <h3 class="bcc-title" id="bcc-modal-title">Préférences des cookies</h3>
             <div class="bcc-cookie-type">
                 <div>
                     <strong>Strictement Nécessaires</strong>
@@ -79,17 +79,17 @@ function bcc_afficher_banniere() {
                 <input type="checkbox" checked disabled>
             </div>
             <div class="bcc-cookie-type">
-                <div>
+                <label for="chk-stats">
                     <strong>Statistiques (Google Analytics)</strong>
                     <p class="bcc-desc">Pour mesurer l'audience de la boutique.</p>
-                </div>
+                </label>
                 <input type="checkbox" id="chk-stats" <?php echo ( '1' === bcc_cookie_value( 'bcc_consent_stats' ) ) ? 'checked' : ''; ?>>
             </div>
             <div class="bcc-cookie-type">
-                <div>
+                <label for="chk-mkt">
                     <strong>Marketing (Pixel Facebook, Google Ads)</strong>
                     <p class="bcc-desc">Pour afficher des publicités ciblées.</p>
-                </div>
+                </label>
                 <input type="checkbox" id="chk-mkt" <?php echo ( '1' === bcc_cookie_value( 'bcc_consent_mkt' ) ) ? 'checked' : ''; ?>>
             </div>
             <div class="bcc-actions" style="margin-top: 20px;">
