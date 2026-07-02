@@ -28,7 +28,7 @@ function bcc_inject_consent_mode() {
 add_action('wp_footer', 'bcc_afficher_banniere');
 function bcc_afficher_banniere() {
     $logo = get_option('bcc_logo_url');
-    $texte = get_option('bcc_texte_banniere');
+    $texte = get_option('bcc_texte_banniere', bcc_texte_par_defaut());
     $url_politique = get_option('bcc_url_politique', '#');
     $url_mentions = get_option('bcc_url_mentions', '#');
     

@@ -17,6 +17,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'BCC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BCC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
+// Texte de bannière par défaut, partagé entre l'écran de réglages et l'affichage public
+function bcc_texte_par_defaut() {
+    return "Nous utilisons des cookies pour assurer le bon fonctionnement du site, analyser notre trafic et personnaliser nos publicités. Vous pouvez choisir vos préférences ci-dessous.";
+}
+
 // Inclusion des fonctionnalités
 require_once BCC_PLUGIN_DIR . 'includes/admin-settings.php';
 require_once BCC_PLUGIN_DIR . 'includes/public-display.php';
@@ -24,7 +29,8 @@ require_once BCC_PLUGIN_DIR . 'includes/public-display.php';
 // Chargement des fichiers CSS et JS
 add_action( 'wp_enqueue_scripts', 'bcc_enqueue_assets' );
 function bcc_enqueue_assets() {
-    // Ne charger les assets que si le cookie complet n'est pas encore posé (optimisation)
+    // Le bouton flottant de rétractation et la modale de préférences restent
+    // disponibles après consentement : CSS et JS sont donc toujours nécessaires.
     wp_enqueue_style( 'bcc-style', BCC_PLUGIN_URL . 'assets/css/style.css', array(), '3.0' );
     wp_enqueue_script( 'bcc-script', BCC_PLUGIN_URL . 'assets/js/script.js', array(), '3.0', true );
 }
