@@ -36,6 +36,7 @@
             <property name="prefixes" type="array">
                 <element value="bcc"/>
             </property>
+            <property name="minimum_prefix_length" value="3"/>
         </properties>
     </rule>
 </ruleset>
