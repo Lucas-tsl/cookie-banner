@@ -1,0 +1,17 @@
+{
+  "name": "banniere-cookie-custom",
+  "version": "3.0.0",
+  "private": true,
+  "description": "Bannière cookie WordPress intégrée avec Google Consent Mode V2 et DataLayer GTM.",
+  "scripts": {
+    "lint:js": "eslint assets/js",
+    "lint:css": "stylelint \"assets/css/**/*.css\"",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.1"
+  }
+}
