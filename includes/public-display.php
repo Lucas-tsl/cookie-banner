@@ -51,50 +51,50 @@ function bcc_afficher_banniere() {
     ?>
     
     <div id="bcc-floating-btn" class="bcc-floating-btn" style="display: <?php echo $choix_fait ? 'flex' : 'none'; ?>;">
-        🍪 Préférences
+        🍪 <?php esc_html_e( 'Préférences', 'banniere-cookie-custom' ); ?>
     </div>
 
     <div id="bcc-banner-card" class="bcc-banner-card" style="display: <?php echo $choix_fait ? 'none' : 'block'; ?>;">
-        <?php if (!empty($logo)) : ?><img src="<?php echo esc_url($logo); ?>" alt="Logo" class="bcc-logo" /><?php endif; ?>
-        <h3 class="bcc-title">Gérer le consentement</h3>
+        <?php if (!empty($logo)) : ?><img src="<?php echo esc_url($logo); ?>" alt="<?php esc_attr_e( 'Logo', 'banniere-cookie-custom' ); ?>" class="bcc-logo" /><?php endif; ?>
+        <h3 class="bcc-title"><?php esc_html_e( 'Gérer le consentement', 'banniere-cookie-custom' ); ?></h3>
         <p class="bcc-desc"><?php echo nl2br(esc_html($texte)); ?></p>
         <div class="bcc-links">
-            <a href="<?php echo esc_url($url_politique); ?>">Politique de confidentialité</a> | <a href="<?php echo esc_url($url_mentions); ?>">Mentions légales</a>
+            <a href="<?php echo esc_url($url_politique); ?>"><?php esc_html_e( 'Politique de confidentialité', 'banniere-cookie-custom' ); ?></a> | <a href="<?php echo esc_url($url_mentions); ?>"><?php esc_html_e( 'Mentions légales', 'banniere-cookie-custom' ); ?></a>
         </div>
         <div class="bcc-actions">
-            <button id="bcc-btn-accepter" class="bcc-btn bcc-btn-accepter">Tout Accepter</button>
-            <button id="bcc-btn-refuser" class="bcc-btn bcc-btn-refuser">Tout Refuser</button>
-            <button id="bcc-btn-prefs" class="bcc-btn bcc-btn-prefs">Personnaliser</button>
+            <button id="bcc-btn-accepter" class="bcc-btn bcc-btn-accepter"><?php esc_html_e( 'Tout Accepter', 'banniere-cookie-custom' ); ?></button>
+            <button id="bcc-btn-refuser" class="bcc-btn bcc-btn-refuser"><?php esc_html_e( 'Tout Refuser', 'banniere-cookie-custom' ); ?></button>
+            <button id="bcc-btn-prefs" class="bcc-btn bcc-btn-prefs"><?php esc_html_e( 'Personnaliser', 'banniere-cookie-custom' ); ?></button>
         </div>
     </div>
 
     <div id="bcc-modal-overlay" class="bcc-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bcc-modal-title">
         <div class="bcc-modal" tabindex="-1">
-            <h3 class="bcc-title" id="bcc-modal-title">Préférences des cookies</h3>
+            <h3 class="bcc-title" id="bcc-modal-title"><?php esc_html_e( 'Préférences des cookies', 'banniere-cookie-custom' ); ?></h3>
             <div class="bcc-cookie-type">
                 <div>
-                    <strong>Strictement Nécessaires</strong>
-                    <p class="bcc-desc">Requis pour le site (panier, sécurité). Non désactivables.</p>
+                    <strong><?php esc_html_e( 'Strictement Nécessaires', 'banniere-cookie-custom' ); ?></strong>
+                    <p class="bcc-desc"><?php esc_html_e( 'Requis pour le site (panier, sécurité). Non désactivables.', 'banniere-cookie-custom' ); ?></p>
                 </div>
                 <input type="checkbox" checked disabled>
             </div>
             <div class="bcc-cookie-type">
                 <label for="chk-stats">
-                    <strong>Statistiques (Google Analytics)</strong>
-                    <p class="bcc-desc">Pour mesurer l'audience de la boutique.</p>
+                    <strong><?php esc_html_e( 'Statistiques (Google Analytics)', 'banniere-cookie-custom' ); ?></strong>
+                    <p class="bcc-desc"><?php esc_html_e( "Pour mesurer l'audience de la boutique.", 'banniere-cookie-custom' ); ?></p>
                 </label>
                 <input type="checkbox" id="chk-stats" <?php echo ( '1' === bcc_cookie_value( 'bcc_consent_stats' ) ) ? 'checked' : ''; ?>>
             </div>
             <div class="bcc-cookie-type">
                 <label for="chk-mkt">
-                    <strong>Marketing (Pixel Facebook, Google Ads)</strong>
-                    <p class="bcc-desc">Pour afficher des publicités ciblées.</p>
+                    <strong><?php esc_html_e( 'Marketing (Pixel Facebook, Google Ads)', 'banniere-cookie-custom' ); ?></strong>
+                    <p class="bcc-desc"><?php esc_html_e( 'Pour afficher des publicités ciblées.', 'banniere-cookie-custom' ); ?></p>
                 </label>
                 <input type="checkbox" id="chk-mkt" <?php echo ( '1' === bcc_cookie_value( 'bcc_consent_mkt' ) ) ? 'checked' : ''; ?>>
             </div>
             <div class="bcc-actions" style="margin-top: 20px;">
-                <button id="bcc-btn-save-prefs" class="bcc-btn bcc-btn-accepter">Enregistrer mes choix</button>
-                <button id="bcc-btn-close-modal" class="bcc-btn bcc-btn-refuser">Annuler</button>
+                <button id="bcc-btn-save-prefs" class="bcc-btn bcc-btn-accepter"><?php esc_html_e( 'Enregistrer mes choix', 'banniere-cookie-custom' ); ?></button>
+                <button id="bcc-btn-close-modal" class="bcc-btn bcc-btn-refuser"><?php esc_html_e( 'Annuler', 'banniere-cookie-custom' ); ?></button>
             </div>
         </div>
     </div>
